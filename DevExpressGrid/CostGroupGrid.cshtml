@@ -1,0 +1,57 @@
+
+
+@using DevProject.Model.Data
+@using mvc.Site.Areas.DevProject.Controllers
+@using mvc.Site.Areas.DevProject
+@using siteComponent.Areas.RBACDefinition.PermissionGroups;
+@inject IViewLocalizer localizer;
+@model mvc.Site.Areas.DevProject.ViewModel.pwmCostGroupGrid
+
+@{
+    string nextOverlayIndex = Model.Overlay.GetNextOverlayIndex();
+
+    string getAllUrl = Url.Action(nameof(CostGroupController.GetCostGroups));
+    string getCostGroupUrl = Url.Action(nameof(CostGroupController.GetCostGroup));
+
+    string deleteUrl = Url.Action(nameof(CostGroupController.DeleteCostGroup));
+    string deleteItUrl = Url.Action(nameof(CostGroupController.DeleteCostGroups));
+
+
+    string dgDivID = Model.Widget.JS_ElementID("dgDiv");
+    string cmdDivID = Model.Widget.JS_ElementID("dgCommandDivID");
+    string dgSettingsVar = Model.Widget.JS_ElementID("dgSettings");
+
+    string cntDeleteModal = Model.Widget.JS_ElementID("cntDeleteModal");
+    string cntDeleteModalExecuteFunc = Model.Widget.JS_ElementID("cntDeleteModalExecuteFunc");
+
+    bool hasCreatePermisson = Model.RuntimeModel.DicPermissions.ContainsKey(MMCPermissionGroups.CostGroupsCreatePG);
+    bool hasEditPermisson = Model.RuntimeModel.DicPermissions.ContainsKey(MMCPermissionGroups.CostGroupsEditPG);
+    bool hasDeletePermisson = Model.RuntimeModel.DicPermissions.ContainsKey(MMCPermissionGroups.CostGroupsDeletePG);
+}
+
+<div class="full-height-box">
+    <div class="full-height-box-content">
+        <div class="header-widget-title">@localizer["T-VC-pwCostGroupGrid-Title"]</div>
+    </div>
+    <div class="full-height-box-content">
+        <div id="@cmdDivID" class="dg-cmd-pannel"></div>
+    </div>
+    <div class="full-height-box-expand">
+        <vc:grid-delete-modal id="@cntDeleteModal" execute-js-func="@cntDeleteModalExecuteFunc"></vc:grid-delete-modal>
+        <div id="@dgDivID" style="height:100%" class="">
+     	<script src="CostGroup.js"></script>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
